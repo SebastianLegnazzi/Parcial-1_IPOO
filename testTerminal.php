@@ -97,5 +97,13 @@ $objTerminal->setArrayObjEmpresa($empresas);
 echo $objTerminal;
 separador();
 
+//plus 2
+$validacion = $objTerminal->getArrayObjEmpresa()[1]->venderViajeADestino(10,"Bs As");
+if($validacion != null){
+    echo "Viaje confirmado! "."\n".$validacion."\n";
+}else{
+    echo "Viaje no se pudo realizar"."\n";
+}
+separador();
 
 ?>

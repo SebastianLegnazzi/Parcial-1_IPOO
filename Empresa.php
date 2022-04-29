@@ -106,13 +106,22 @@ class Empresa{
      * @return object
      */
 	public function venderViajeADestino($canAsientos, $destino){
-		$viajeAsignado = null;
 		$arrayObjViajeDisp = $this->darViajeADestino($destino, $canAsientos);
-		if(count($arrayObjViajeDisp) > 0){
-			$arrayObjViajeDisp[0]->asignarAsientosDisponibles($canAsientos);
-			$viajeAsignado = $arrayObjViajeDisp[0];
+		$buscar = true;
+		$objViaje = null;
+		$i=0;
+		while($buscar && $i < count($arrayObjViajeDisp)){
+			if(strtolower($arrayObjViajeDisp[$i]->getDestino()) == strtolower($destino)){
+				$buscar = false;
+				$objViaje = $arrayObjViajeDisp[$i];
+			}else{
+				$i++;
+			}
 		}
-		return $viajeAsignado;
+		if($objViaje != null){
+			$objViaje->asignarAsientosDisponibles($canAsientos);
+		}
+		return $objViaje;
 	}
 
 	/**
