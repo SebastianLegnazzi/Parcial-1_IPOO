@@ -97,6 +97,5 @@ $objTerminal->setArrayObjEmpresa($empresas);
 echo $objTerminal;
 separador();
 
-//Plus 
 
 ?>

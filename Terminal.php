@@ -82,7 +82,7 @@ class Terminal{
 			if(count($arraydestinosDisp) > 0){
 				$buscar = true;
 				$i = 0;
-				while($buscar && $i <= count($arraydestinosDisp)){
+				while($buscar && $i < count($arraydestinosDisp)){
 					if($arraydestinosDisp[$i]->getFecha() == $fecha){
 						$validacion = $arraydestinosDisp[$i];
 						$arraydestinosDisp[$i]->asignarAsientosDisponibles($cantAsientos);
