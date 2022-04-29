@@ -1,5 +1,5 @@
 <?php
-class Clase4{
+class Responsable{
     private $nombre;
     private $apellido;
     private $documento;
