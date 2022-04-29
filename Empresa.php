@@ -66,17 +66,28 @@ class Empresa{
         $this->arrayObjViajes = $arrayObjViajes;
 	}
 
+	/**
+     * Este modulo devuelve un array con todos los viajes con el destino ingresado y asientos disponibles
+     * @param string $elDestino
+     * @param int $asientos
+     * @return array
+     */
 	public function darViajeADestino($elDestino, $asientos){
 		$arrayObjViajes = $this->getArrayObjViajes();
 		$arrayViajeDisp = [];
 		foreach($arrayObjViajes as $viaje){
-			if((strtolower($viaje->getDestino()) == strtolower($elDestino)) && ($viaje->getCantAsientosDisp() > $asientos)){
+			if((strtolower($viaje->getDestino()) == strtolower($elDestino)) && ($viaje->getCantAsientosDisp() >= $asientos)){
 				array_push($arrayViajeDisp, $viaje);
 			}
 		}
 		return $arrayViajeDisp;
 	}
 
+	/**
+     * Este modulo incorpora un viaje que no este creado
+     * @param object $objViaje
+     * @return boolean
+     */
 	public function incorporarViaje($objViaje){
 		$arrayObjViajes = $this->getArrayObjViajes();
 		$validacion = false;
@@ -88,6 +99,12 @@ class Empresa{
 		return $validacion;
 	}
 
+	/**
+     * Este modulo vende un viaje con el destino deseado y asientos disponibles
+     * @param int $canAsientos
+     * @param string $destino
+     * @return object
+     */
 	public function venderViajeADestino($canAsientos, $destino){
 		$viajeAsignado = null;
 		$arrayObjViajeDisp = $this->darViajeADestino($destino, $canAsientos);
@@ -98,6 +115,10 @@ class Empresa{
 		return $viajeAsignado;
 	}
 
+	/**
+     * Este modulo devuelve el monto recaudado de la empresa
+     * @return int
+     */
 	public function montoRecaudado(){
 		$arrayObjViajes = $this->getArrayObjViajes();
 		$recaudado = 0;
@@ -133,7 +154,7 @@ class Empresa{
 		$arrayObjViajes = $this->getArrayObjViajes();
 		$buscar = true;
 		$i = 0;
-		while($buscar && $i <= count($arrayObjViajes)){
+		while($buscar && $i < count($arrayObjViajes)){
 			if((strtolower($arrayObjViajes[$i]->getDestino()) == strtolower($objViaje->getDestino())) && ($arrayObjViajes[$i]->getFecha() == $objViaje->getFecha()) && ($arrayObjViajes[$i]->getHoraPartida() == $objViaje->getHoraPartida())){
 				$buscar = false;
 			}else{

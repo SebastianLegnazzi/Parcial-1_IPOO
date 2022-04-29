@@ -66,24 +66,44 @@ class Terminal{
         $this->arrayObjEmpresa = $arrayObjEmpresa;
 	}
 
+	/**
+     * Este modulo realiza una venta de un viaje, asigna los asientos ingresados y devuelve el objetoViaje en cual se realizo en caso contrario null
+     * @param int $cantAsientos
+     * @param string $fecha
+     * @param string $destino
+     * @param string $empresa
+     * @return object
+     */
 	public function ventaAutomatica($cantAsientos, $fecha, $destino, $empresa){
 		$objEmpresa = $this->buscarEmpresa($empresa);
-		$arraydestinosDisp = $objEmpresa->darViajeADestino($destino, $cantAsientos);
-		$buscar = true;
 		$validacion = null;
-		$i = 0;
-		while($buscar && $i <= count($arraydestinosDisp)){
-			if($arraydestinosDisp[$i]->getFecha() == $fecha){
-				$validacion = $arraydestinosDisp[$i];
-				$arraydestinosDisp[$i]->asignarAsientosDisponibles($cantAsientos);
-				$buscar = false;
-			}else{
-				$i++;
+			if($objEmpresa != null){
+			$arraydestinosDisp = $objEmpresa->darViajeADestino($destino, $cantAsientos);
+			if(count($arraydestinosDisp) > 0){
+				$buscar = true;
+				$i = 0;
+				while($buscar && $i <= count($arraydestinosDisp)){
+					if($arraydestinosDisp[$i]->getFecha() == $fecha){
+						$validacion = $arraydestinosDisp[$i];
+						$arraydestinosDisp[$i]->asignarAsientosDisponibles($cantAsientos);
+						$buscar = false;
+					}else{
+						$i++;
+					}
+				}
 			}
 		}
 		return $validacion;
 	}
 
+	/**
+     * Este modulo devuelve la empresa con mayor recaudacion
+     * @param int $cantAsientos
+     * @param string $fecha
+     * @param string $destino
+     * @param string $empresa
+     * @return object
+     */
 	public function empresaMayorRecaudacion(){
 		$arrayObjEmpresa = $this->getArrayObjEmpresa();
 		$mayorReca = $arrayObjEmpresa[0]->montoRecaudado();
@@ -96,6 +116,11 @@ class Terminal{
 		return $empresaMayorRec;
 	}
 
+	/**
+     * Este modulo devuelve el responsable del viaje
+     * @param int $numeroViaje
+     * @return object
+     */
 	public function responsableViaje($numeroViaje){
 		$arrayObjEmpresa = $this->getArrayObjEmpresa();
 		$buscar = true;
@@ -129,12 +154,17 @@ class Terminal{
 	/********* FUNCIONES PRIVADAS *********/
 	/**************************************/
 
+	/**
+     * Este modulo busca la empresa deseada y devuelve el objeto
+     * @param string $numeroViaje
+     * @return object
+     */
 	private function buscarEmpresa($nombreEmpresa){
 		$arrayObjEmpresa = $this->getArrayObjEmpresa();
 		$buscar = true;
 		$empresa = null;
 		$i = 0;
-		while($buscar && $i <= count($arrayObjEmpresa)){
+		while($buscar && $i < count($arrayObjEmpresa)){
 			if(strtolower($arrayObjEmpresa[$i]->getNombre()) == strtolower($nombreEmpresa)){
 				$buscar = false;
 				$empresa = $arrayObjEmpresa[$i];

@@ -161,9 +161,14 @@ class Viaje{
         $this->objResponsable = $objResponsable;
 	}
 
+    /**
+     * Este modulo devuelve true si hay asientos disponibles, false en caso contrario
+     * @param int $cantAsientos
+     * @return boolean
+     */
 	public function asignarAsientosDisponibles($cantAsientos){
 		if($this->getCantAsientosDisp() >= $cantAsientos){
-			$asientosOcupados = $this->getCantAsientosDisp() + $cantAsientos;
+			$asientosOcupados = $this->getCantAsientosDisp() - $cantAsientos;
 			$this->setCantAsientosDisp($asientosOcupados);
 			$validacion = true;
 		}else{

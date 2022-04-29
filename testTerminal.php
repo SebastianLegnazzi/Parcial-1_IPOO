@@ -41,6 +41,27 @@ function separador(){
     echo "======================================================"."\n";
 }
 
+/**
+ * Muestra el menu para que el usuario elija y retorna la opcion
+ * @return int 
+ */
+function menu()
+{
+    echo "\n"."MENU DE OPCIONES"."\n";
+    echo "1) Ver datos de las empresas de la terminal."."\n";
+    echo "2) Venta automatica."."\n";
+    echo "3) Cual empresa tuvo mayor recaudacion."."\n";
+    echo "4) Agregar un viaje."."\n";
+    echo "5) Buscar viajes con destino y disponibilidad."."\n";
+    echo "6) Agregar pasajeros a un viaje."."\n";
+    echo "7) Saber el responsable de un viaje"."\n";
+    echo "0) Salir"."\n";
+    echo "Opcion: ";
+    $menu = trim(fgets(STDIN));
+    echo "\n";
+    return $menu;
+}
+
 /**************************************/
 /************** FUNCIONES *************/
 /**************************************/
@@ -68,5 +89,14 @@ $responsable = $objTerminal->responsableViaje(3);
 echo "El responsable del viaje 3 es: "."\n".$responsable."\n";
 separador();
 
+//Plus 
+$nuevoViaje = new Viaje("Bariloche", "19:30", "02:30",1,7800,"07/08/2022",44,20,$objResponsableFBSRL[0]);
+$empresas = $objTerminal->getArrayObjEmpresa();
+$empresas[0]->incorporarViaje($nuevoViaje);
+$objTerminal->setArrayObjEmpresa($empresas);
+echo $objTerminal;
+separador();
+
+//Plus 
 
 ?>
